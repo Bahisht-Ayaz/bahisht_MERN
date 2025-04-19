@@ -1,9 +1,8 @@
-let mongo=require("mongoose");
-
-let user_model = mongo.Schema({
-    user_name:{
-        type:String,
-        required:true
+let mongo = require("mongoose")
+let user_collection = mongo.Schema({
+    name :{
+     type : String,
+     required : true
     },
     email:{
         type:String,
@@ -27,4 +26,4 @@ let user_model = mongo.Schema({
         default:Date.now
     }
 })
-module.exports = mongo.model("user_col",user_model)
+module.exports =mongo.model ("User",user_collection);
