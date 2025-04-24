@@ -14,19 +14,42 @@ function clear(){
     setPswd();
     setAge();
 }
-function save_data (){
+async function save_data (){
     try {
-        axios.post("http://localhost:8007/Web/reg",{
-            name:name,
-            email:email,
-            password:pswd,
-            age:age
-        })
-        toast.success("Data Added Sucessfully");
-        clear();
+        let pswd_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()\-_=+{};:,<.>]).{8,}$/
+        let username_regex =/^[a-zA-Z0-9._-]{3,16}$/
+        if (!name || !email || !pswd || age === 0){
+            toast.error("All fields are required");
+        }
+        else if (!pswd_regex.test(pswd)){
+            toast.error("Password invalid")
+        }
+        else if(!username_regex.test(name)){
+            toast.error("Username invalid")
+        }
+        else if(age < 18){
+            toast.error("Age must be or greater than 18")
+        }
+        else {
+            await axios.post("http://localhost:8007/Web/reg",{
+                name:name,
+                email:email,
+                password:pswd,
+                age:age
+            })
+            console.log("data save successfully")
+            toast.success("Data Added Successfully")
+            clear()
+        }    
     } catch (error) {
-        toast.error(error)
-        console.log("error")
+        if(error.status === 409){
+            toast.error("Email already exist")
+        }
+        else {
+            toast.error(error)
+            console.log(error)
+        }
+        
     }
 }
 
