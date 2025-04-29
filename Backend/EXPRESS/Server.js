@@ -1,5 +1,5 @@
 let express = require("express");
-let r = require("./Routing/Route");
+let r = require("./Routing/route");
 let db = require("./Db");
 let cors =require("cors");
 let user = require("./Collections/User")

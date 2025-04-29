@@ -21,6 +21,14 @@ let main_function = {
        }catch(error){
         res.status(501).json({msg: error.message})
        }
+    },
+    get_user :async function(req,res){
+        try {
+            let getdata = await user.find().select("-password").sort({"created_at":-1})
+            return res.status(201).json(getdata)
+        } catch (error) {
+         res.status(501).json({msg: error.message})
+        }
     }
 }
 module.exports = main_function
