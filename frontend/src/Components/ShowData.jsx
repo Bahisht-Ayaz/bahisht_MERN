@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import {toast,ToastContainer} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 export default function ShowData() {
     let [userdata,setUserData] = useState([])
     useEffect(()=> {
@@ -17,21 +16,8 @@ export default function ShowData() {
             console.log(e)
         })
     }
-    async function remove(id){
-    try {
-        if(window.confirm("Are you sure want to delete this record?")){
-         await axios.delete(`http://localhost:8007/Web/user/${id}`).then(()=>{ 
-         datalao();
-         toast.info("Record Deleted Successfully")})
-       
-        }
-    } catch (error) {
-        toast.error(error.response.data.msg)
-    }
-    }
   return (
     <div className='container'>
-        <ToastContainer/>
      <h1>User Data</h1>
      <hr />
      <div className='row'>
@@ -50,7 +36,6 @@ export default function ShowData() {
                 <div class="card-body">
                     <h4 class="card-title">{a.name}</h4>
                     <p class="card-text">{a.email}</p>
-                    <button className='btn btn-danger' onClick={()=>{remove(a._id)}}><i class="bi bi-trash3"></i></button>
                 </div>
             </div>
             </div>
