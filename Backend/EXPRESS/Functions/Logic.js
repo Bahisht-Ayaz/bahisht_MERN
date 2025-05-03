@@ -21,6 +21,26 @@ let main_function = {
        }catch(error){
         res.status(501).json({msg: error.message})
        }
+    },
+    get_user :async function(req,res){
+        try {
+            let getdata = await user.find().select("-password").sort({"created_at":-1})
+            return res.status(201).json(getdata)
+        } catch (error) {
+         res.status(501).json({msg: error.message})
+        }
+    },
+    delete_record :async function(req,res){
+        try {
+            let {id} =req.params
+            let id_dhundo =await user.findById(id)
+            if(id_dhundo) {
+                await user.findByIdAndDelete(id_dhundo)
+                return res.status(200).json({msg:"Record deleted successfully"})
+            }
+        } catch (error) {
+            res.status(501).json({msg:error.message})
+        }
     }
 }
 module.exports = main_function
