@@ -78,7 +78,7 @@ export default function ShowData() {
                     <p class="card-text">{a.email}</p>
                     <button className='btn btn-danger btn-sm' onClick={()=>{remove(a._id)}}><i class="bi bi-trash3"></i></button>
                     <button className='btn btn-success btn-sm' data-bs-toggle="modal" 
-                    data-bs-target="#exampleModal" onClick={()=>fetchData(a.name,a.email,a.age)}><i class="bi bi-pen"></i></button>
+                    data-bs-target="#exampleModal" onClick={()=>fetchData(a.name,a.email,a.age,a._id)}><i class="bi bi-pen"></i></button>
                 </div>
             </div>
             </div>
