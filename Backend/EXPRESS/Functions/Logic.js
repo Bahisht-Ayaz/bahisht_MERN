@@ -29,6 +29,32 @@ let main_function = {
         } catch (error) {
          res.status(501).json({msg: error.message})
         }
-    }
+    },
+    delete_record:async function(req,res){
+        try {
+        let {id} =req.params
+        let id_dhundo = await user.findById(id)
+        if(id_dhundo){
+            await user.findByIdAndDelete(id_dhundo)
+            return res.status(200).json({msg:"Record Delete Successfully"})
+        }
+        } catch (error) {
+            res.status(501).json({msg:error.message})
+        }
+        },
+    update_record:async function(req,res){
+        try {
+            let {id} = req.params
+            let {name,email,age} = req.body;
+
+            let id_dhundo = await user.findById(id);
+            if(id_dhundo){
+                await user.findByIdAndUpdate(id,{name : name, email:email, age:age})
+                res.status(200).json({msg:"Record Updated Successfully"})
+            }
+        } catch (error) {
+            res.status(501).json({msg:error.message})
+        }
+        }
 }
 module.exports = main_function
